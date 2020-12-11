@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleRecruitmentResponse(Response<RecruitmentResponse> response) {
         if (response.code() == 201) {
-            alertDialog("Success", response.body().toString()).show();
+            alertDialog("Success", response.body().getMessage()).show();
             uploadCv(fileUri);
         } else {
             ErrorResponse errorResponse = ErrorUtils.parseError(response);
@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleResponse(Response<CvUploadResponse> response) {
         if (response.code() == 201) {
-            alertDialog("Success", response.body().toString()).show();
+            alertDialog("Success", response.body().getMessage()).show();
         } else {
             ErrorResponse errorResponse = ErrorUtils.parseError(response);
             if (!errorResponse.isSuccess()) {
