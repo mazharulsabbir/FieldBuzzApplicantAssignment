@@ -169,6 +169,12 @@ public class MainActivity extends AppCompatActivity {
         RetrofitBuilder builder = new RetrofitBuilder();
 
         if (isValidForm(recruitment)) {
+
+            if (fileUri == null) {
+                alertDialog("Warning", "Cv not found to upload. Please attach cv and try again.");
+                return;
+            }
+
             ProgressDialog dialog = new ProgressDialog(this);
             dialog.setCancelable(false);
             dialog.setMessage("Loading...");
