@@ -16,7 +16,7 @@ public class CvFile {
     @SerializedName("file")
     private Object mFile;
     @SerializedName("id")
-    private Long mId;
+    private int mId;
     @SerializedName("last_updated")
     private Long mLastUpdated;
     @SerializedName("name")
@@ -66,11 +66,11 @@ public class CvFile {
         mFile = file;
     }
 
-    public Long getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         mId = id;
     }
 

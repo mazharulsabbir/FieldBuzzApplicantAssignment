@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
     private void handleRecruitmentResponse(Response<RecruitmentResponse> response) {
         if (response.code() == 201) {
             alertDialog("Success", response.body().getMessage()).show();
-            uploadCv(fileUri);
+            uploadCv(fileUri, response.body().getCvFile().getId());
         } else {
             ErrorResponse errorResponse = ErrorUtils.parseError(response);
             if (!errorResponse.isSuccess()) {
@@ -236,8 +236,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadCv(Uri fileUri) {
-        if (fileUri == null) return;
+    private void uploadCv(Uri fileUri, int fileId) {
+        if (fileUri == null) {
+            alertDialog("Warning", "Cv not found to upload. Please attach cv and try again.");
+            return;
+        }
 
         File file = FileUtils.getFile(this, fileUri);
 
@@ -255,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
         RetrofitBuilder builder = new RetrofitBuilder();
 
         disposable.add(
-                builder.getFieldBuzzApiService(client).uploadCv(661, body)
+                builder.getFieldBuzzApiService(client).uploadCv(fileId, body)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .map(response -> response)
