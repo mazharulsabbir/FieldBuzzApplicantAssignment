@@ -87,4 +87,17 @@ public class AuthenticateResponse {
         mToken = token;
     }
 
+    @Override
+    public String toString() {
+        return "AuthenticateResponse{" +
+                "mAppTopModuleAssignment=" + mAppTopModuleAssignment +
+                ", mAuthInfo=" + mAuthInfo +
+                ", mOrganizationInfo=" + mOrganizationInfo +
+                ", mOrganizationLogo='" + mOrganizationLogo + '\'' +
+                ", mOrganizationName='" + mOrganizationName + '\'' +
+                ", mSuccess=" + mSuccess +
+                ", mMessage='" + mMessage + '\'' +
+                ", mToken='" + mToken + '\'' +
+                '}';
+    }
 }

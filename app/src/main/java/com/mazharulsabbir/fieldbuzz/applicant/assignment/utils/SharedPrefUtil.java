@@ -25,4 +25,13 @@ public class SharedPrefUtil {
         SharedPreferences preferences = context.getSharedPreferences(DATABASE_NAME, 0);
         return preferences.getString(TOKEN, null);
     }
+
+    public void logout() {
+        SharedPreferences preferences = context.getSharedPreferences(DATABASE_NAME, 0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(TOKEN);
+        editor.clear();
+        editor.apply();
+        editor.commit();
+    }
 }

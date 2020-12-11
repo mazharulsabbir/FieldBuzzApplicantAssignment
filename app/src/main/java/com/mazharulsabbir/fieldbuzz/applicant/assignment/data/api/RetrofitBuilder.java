@@ -25,7 +25,7 @@ public class RetrofitBuilder {
                 .create(FieldBuzzApiService.class);
     }
 
-    public Retrofit getRetrofit(OkHttpClient client) {
+    private Retrofit getRetrofit(OkHttpClient client) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(client)

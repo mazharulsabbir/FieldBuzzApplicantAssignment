@@ -13,6 +13,16 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Applicant Info" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="16dp" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/name"
             android:layout_width="match_parent"
@@ -69,12 +79,24 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:inputType="textPostalAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Space
             android:layout_width="wrap_content"
             android:layout_height="10dp" />
+
+
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Graduation Info" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="16dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/name_of_university"
@@ -123,6 +145,17 @@
             android:layout_width="wrap_content"
             android:layout_height="10dp" />
 
+
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Experience Info" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="16dp" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/experience_in_months"
             android:layout_width="match_parent"
@@ -154,6 +187,16 @@
             android:layout_width="wrap_content"
             android:layout_height="10dp" />
 
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Application Info" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="16dp" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/applying_in_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
@@ -179,7 +222,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Space
@@ -218,23 +262,34 @@
             android:layout_width="wrap_content"
             android:layout_height="10dp" />
 
-        <TextView
-            android:id="@+id/pdf_url"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/upload_pdf_cv"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="chooseCvFromFile"
-            android:text="Upload CV" />
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/pdf_url"
+                android:layout_width="0dp"
+                android:maxLines="3"
+                android:ellipsize="marquee"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Pdf not selected yet." />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/upload_pdf_cv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="chooseCvFromFile"
+                android:text="Choose Cv" />
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/save_recruitment"
-            android:onClick="saveRecruitment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:onClick="saveRecruitment"
             android:text="Save" />
 
     </LinearLayout>

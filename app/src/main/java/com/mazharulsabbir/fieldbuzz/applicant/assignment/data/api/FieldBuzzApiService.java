@@ -20,8 +20,8 @@ public interface FieldBuzzApiService {
     @POST("api/login/")
     Observable<Response<AuthenticateResponse>> login(@Body Authentication authentication);
 
-    @POST("api/v0/recruiting-entities/")
-    Observable<Response<RecruitmentResponse>> recruitment(
+    @POST("api/v1/recruiting-entities/")
+    Single<Response<RecruitmentResponse>> recruitment(
             @Body Recruitment recruitment
     );
 

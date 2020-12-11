@@ -126,4 +126,21 @@ public class CvUploadResponse {
         this.tsyncId = tsyncId;
     }
 
+    @Override
+    public String toString() {
+        return "CvUploadResponse{" +
+                "code='" + code + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", description=" + description +
+                ", extension=" + extension +
+                ", file=" + file +
+                ", id=" + id +
+                ", lastUpdated=" + lastUpdated +
+                ", message='" + message + '\'' +
+                ", name='" + name + '\'' +
+                ", path='" + path + '\'' +
+                ", success=" + success +
+                ", tsyncId='" + tsyncId + '\'' +
+                '}';
+    }
 }

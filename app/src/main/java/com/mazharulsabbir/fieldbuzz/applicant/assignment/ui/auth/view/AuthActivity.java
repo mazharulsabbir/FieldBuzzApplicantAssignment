@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.R;
-import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.AuthErrorResponse;
+import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.ErrorResponse;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.AuthenticateResponse;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.Authentication;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.ui.auth.viewmodel.AuthViewModel;
@@ -108,7 +108,7 @@ public class AuthActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Login Failed! Try again.", Toast.LENGTH_SHORT).show();
 
-            AuthErrorResponse errorResponse = ErrorUtils.parseError(response);
+            ErrorResponse errorResponse = ErrorUtils.parseError(response);
             if (!errorResponse.isSuccess()) {
                 pass.setErrorEnabled(false);
                 email.setErrorEnabled(false);
