@@ -1,13 +1,8 @@
 <resources>
-    <string name="app_name">Field Buzz Applicant Assignment</string>
+    <string name="app_name">Applicant Recruitment</string>
     <string name="email_address_username">Email Address/Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
 
     <string name="internal_storage">Internal storage</string>
-
-    <string-array name="applying_in">
-        <item>Backend</item>
-        <item>Mobile</item>
-    </string-array>
 </resources>

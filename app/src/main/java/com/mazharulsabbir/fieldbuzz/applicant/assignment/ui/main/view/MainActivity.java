@@ -31,7 +31,6 @@ import com.mazharulsabbir.fieldbuzz.applicant.assignment.utils.FileUtils;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.utils.SharedPrefUtil;
 
 import java.io.File;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -91,11 +90,12 @@ public class MainActivity extends AppCompatActivity {
 
     private Recruitment getRecruitmentFromInput() {
         Recruitment recruitment = new Recruitment();
+        SharedPrefUtil prefUtil = new SharedPrefUtil(this);
 
-        recruitment.setTsyncId(UUID.randomUUID().toString()); // this uuid will create new data.
+        recruitment.setTsyncId(prefUtil.getUUID()); // this uuid will create new data.
 
         CvFile cvFile = new CvFile();
-        cvFile.setTsyncId(UUID.randomUUID().toString());
+        cvFile.setTsyncId(prefUtil.getCvFileUUID());
         recruitment.setCvFile(cvFile);
 
         if (validateTextInputLayout(name))
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         if (isValidForm(recruitment)) {
 
             if (fileUri == null) {
-                alertDialog("Warning", "Cv not found to upload. Please attach cv and try again.");
+                alertDialog("Warning", "Cv not found to upload. Please attach cv and try again.").show();
                 return;
             }
 
@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void uploadCv(Uri fileUri, int fileId) {
         if (fileUri == null) {
-            alertDialog("Warning", "Cv not found to upload. Please attach cv and try again.");
+            alertDialog("Warning", "Cv not found to upload. Please attach cv and try again.").show();
             return;
         }
 

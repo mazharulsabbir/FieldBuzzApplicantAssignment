@@ -1,5 +1,5 @@
 
-package com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth;
+package com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.response;
 
 import com.google.gson.annotations.SerializedName;
 

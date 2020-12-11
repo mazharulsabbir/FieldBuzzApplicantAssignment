@@ -44,6 +44,14 @@ public class RecruitmentResponse {
     @SerializedName("tsync_id")
     private String mTsyncId;
 
+    public RecruitmentResponse() {
+    }
+
+    public RecruitmentResponse(String mMessage, Boolean mSuccess) {
+        this.mMessage = mMessage;
+        this.mSuccess = mSuccess;
+    }
+
     public String getApplyingIn() {
         return mApplyingIn;
     }
@@ -196,4 +204,28 @@ public class RecruitmentResponse {
         mTsyncId = tsyncId;
     }
 
+    @Override
+    public String toString() {
+        return "RecruitmentResponse{" +
+                "mApplyingIn='" + mApplyingIn + '\'' +
+                ", mCgpa=" + mCgpa +
+                ", mCurrentWorkPlaceName='" + mCurrentWorkPlaceName + '\'' +
+                ", mCvFile=" + mCvFile +
+                ", mEmail='" + mEmail + '\'' +
+                ", mExpectedSalary=" + mExpectedSalary +
+                ", mExperienceInMonths=" + mExperienceInMonths +
+                ", mFieldBuzzReference='" + mFieldBuzzReference + '\'' +
+                ", mFullAddress='" + mFullAddress + '\'' +
+                ", mGithubProjectUrl='" + mGithubProjectUrl + '\'' +
+                ", mGraduationYear=" + mGraduationYear +
+                ", mMessage='" + mMessage + '\'' +
+                ", mName='" + mName + '\'' +
+                ", mNameOfUniversity='" + mNameOfUniversity + '\'' +
+                ", mOnSpotCreationTime=" + mOnSpotCreationTime +
+                ", mOnSpotUpdateTime=" + mOnSpotUpdateTime +
+                ", mPhone='" + mPhone + '\'' +
+                ", mSuccess=" + mSuccess +
+                ", mTsyncId='" + mTsyncId + '\'' +
+                '}';
+    }
 }

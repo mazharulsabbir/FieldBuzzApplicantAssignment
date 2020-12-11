@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.api.FieldBuzzApiService;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.api.RetrofitBuilder;
-import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.AuthenticateResponse;
+import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.response.AuthenticateResponse;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.Authentication;
 
 import io.reactivex.Observable;

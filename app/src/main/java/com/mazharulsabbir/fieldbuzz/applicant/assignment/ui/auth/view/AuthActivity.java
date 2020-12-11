@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.R;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.ErrorResponse;
-import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.AuthenticateResponse;
+import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.response.AuthenticateResponse;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.Authentication;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.ui.auth.viewmodel.AuthViewModel;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.ui.main.view.MainActivity;

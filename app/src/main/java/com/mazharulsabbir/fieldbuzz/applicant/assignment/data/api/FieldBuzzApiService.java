@@ -1,6 +1,6 @@
 package com.mazharulsabbir.fieldbuzz.applicant.assignment.data.api;
 
-import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.AuthenticateResponse;
+import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.response.AuthenticateResponse;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.Authentication;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.cv.CvUploadResponse;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.recruitment.Recruitment;
