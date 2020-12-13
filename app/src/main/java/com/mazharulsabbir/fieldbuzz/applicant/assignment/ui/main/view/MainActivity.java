@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.R;
@@ -31,6 +32,7 @@ import com.mazharulsabbir.fieldbuzz.applicant.assignment.utils.FileUtils;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.utils.SharedPrefUtil;
 
 import java.io.File;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             experienceInMonth, currentWorkPlace, expectedSalary, fieldBuzzReference, githubProjectUrl;
 
     private MaterialAutoCompleteTextView applyingIn;
+    private SharedPrefUtil sharedPrefUtil;
 
     private Uri fileUri;
 
@@ -68,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
         MaterialAutoCompleteTextView applyingIn = findViewById(R.id.applying_in);
         applyingIn.setAdapter(adapter);
+
+        sharedPrefUtil = new SharedPrefUtil(this);
+        updateButtonVisibility();
 
         initTextInputLayout();
     }
@@ -90,13 +96,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Recruitment getRecruitmentFromInput() {
         Recruitment recruitment = new Recruitment();
-        SharedPrefUtil prefUtil = new SharedPrefUtil(this);
-
-        recruitment.setTsyncId(prefUtil.getUUID()); // this uuid will create new data.
-
-        CvFile cvFile = new CvFile();
-        cvFile.setTsyncId(prefUtil.getCvFileUUID());
-        recruitment.setCvFile(cvFile);
 
         if (validateTextInputLayout(name))
             recruitment.setName(name.getEditText().getText().toString().trim());
@@ -168,6 +167,13 @@ public class MainActivity extends AppCompatActivity {
         Recruitment recruitment = getRecruitmentFromInput();
         RetrofitBuilder builder = new RetrofitBuilder();
 
+        recruitment.setTsyncId(UUID.randomUUID().toString()); // this uuid will create new data.
+
+        CvFile cvFile = new CvFile();
+        cvFile.setTsyncId(UUID.randomUUID().toString());
+        recruitment.setCvFile(cvFile);
+
+
         if (isValidForm(recruitment)) {
 
             if (fileUri == null) {
@@ -196,15 +202,58 @@ public class MainActivity extends AppCompatActivity {
                                     this::handleError
                             )
             );
-        } else
+        } else {
             Toast.makeText(this, "Please enter required information first.", Toast.LENGTH_SHORT)
                     .show();
+        }
+    }
+
+    public void updateRecruitment(View view) {
+        Recruitment recruitment = getRecruitmentFromInput();
+        RetrofitBuilder builder = new RetrofitBuilder();
+
+        recruitment.setTsyncId(sharedPrefUtil.getUUID()); // this uuid will create new data.
+
+        CvFile cvFile = new CvFile();
+        cvFile.setTsyncId(sharedPrefUtil.getCvFileUUID());
+        recruitment.setCvFile(cvFile);
+
+        if (isValidForm(recruitment)) {
+
+            ProgressDialog dialog = new ProgressDialog(this);
+            dialog.setCancelable(false);
+            dialog.setMessage("Loading...");
+            dialog.show();
+
+            disposable.add(
+                    builder.getFieldBuzzApiService(client)
+                            .recruitment(recruitment)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .map(response -> {
+                                dialog.dismiss();
+                                return response;
+                            })
+//                            .doOnError(this::handleError)
+//                            .doOnSuccess(this::handleRecruitmentResponse)
+                            .subscribe(
+                                    this::handleRecruitmentResponse,
+                                    this::handleError
+                            )
+            );
+        } else {
+            Toast.makeText(this, "Please enter required information first.", Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 
     private void handleRecruitmentResponse(Response<RecruitmentResponse> response) {
         if (response.code() == 201) {
-            alertDialog("Success", response.body().getMessage()).show();
+            updateButtonVisibility();
+            alertDialog("Recruitment Saved ✔", response.body().getMessage()).show();
             uploadCv(fileUri, response.body().getCvFile().getId());
+            sharedPrefUtil.setUUID(response.body().getTsyncId());
+            sharedPrefUtil.setCvUUID(response.body().getCvFile().getTsyncId());
         } else {
             ErrorResponse errorResponse = ErrorUtils.parseError(response);
             if (!errorResponse.isSuccess()) {
@@ -276,12 +325,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleResponse(Response<CvUploadResponse> response) {
-        if (response.code() == 201) {
-            alertDialog("Success", response.body().getMessage()).show();
+        if (response.code() == 201 || response.code() == 200) {
+            alertDialog("CV Uploaded ✔", response.body().getMessage()).show();
+            updateButtonVisibility();
         } else {
-            ErrorResponse errorResponse = ErrorUtils.parseError(response);
-            if (!errorResponse.isSuccess()) {
-                alertDialog("Warning", "Failed to upload your cv. " + errorResponse.getMessage()).show();
+            try {
+                ErrorResponse errorResponse = ErrorUtils.parseError(response);
+                if (!errorResponse.isSuccess()) {
+                    alertDialog("Warning", "Failed to upload your cv. " + errorResponse.getMessage()).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
@@ -291,6 +345,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleError(Throwable throwable) {
         alertDialog("Warning", "An unexpected error occurred. Try again later.").show();
+    }
+
+    private void updateButtonVisibility() {
+        MaterialButton button = findViewById(R.id.update_recruitment);
+        String recruitmentUUID = sharedPrefUtil.getUUID();
+        String cvUUID = sharedPrefUtil.getCvFileUUID();
+
+        if (recruitmentUUID != null && cvUUID != null)
+            button.setVisibility(View.VISIBLE);
+        else button.setVisibility(View.GONE);
     }
 
     private AlertDialog alertDialog(String title, String message) {

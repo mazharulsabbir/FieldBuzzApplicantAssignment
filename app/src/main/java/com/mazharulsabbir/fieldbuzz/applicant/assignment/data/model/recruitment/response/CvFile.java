@@ -106,4 +106,19 @@ public class CvFile {
         mTsyncId = tsyncId;
     }
 
+    @Override
+    public String toString() {
+        return "CvFile{" +
+                "mCode='" + mCode + '\'' +
+                ", mDateCreated=" + mDateCreated +
+                ", mDescription=" + mDescription +
+                ", mExtension=" + mExtension +
+                ", mFile=" + mFile +
+                ", mId=" + mId +
+                ", mLastUpdated=" + mLastUpdated +
+                ", mName='" + mName + '\'' +
+                ", mPath='" + mPath + '\'' +
+                ", mTsyncId='" + mTsyncId + '\'' +
+                '}';
+    }
 }

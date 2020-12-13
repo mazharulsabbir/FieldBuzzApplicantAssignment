@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.R;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.ErrorResponse;
-import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.response.AuthenticateResponse;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.Authentication;
+import com.mazharulsabbir.fieldbuzz.applicant.assignment.data.model.auth.response.AuthenticateResponse;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.ui.auth.viewmodel.AuthViewModel;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.ui.main.view.MainActivity;
 import com.mazharulsabbir.fieldbuzz.applicant.assignment.utils.ErrorUtils;
@@ -42,6 +42,8 @@ public class AuthActivity extends AppCompatActivity {
         pass = findViewById(R.id.password);
 
         SharedPrefUtil sharedPrefUtil = new SharedPrefUtil(this);
+        sharedPrefUtil.getUUID();
+
         if (sharedPrefUtil.getToken() != null) {
             updateUI();
         }

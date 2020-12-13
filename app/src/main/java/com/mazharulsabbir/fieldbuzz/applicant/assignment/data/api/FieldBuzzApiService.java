@@ -13,6 +13,7 @@ import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -26,7 +27,7 @@ public interface FieldBuzzApiService {
     );
 
     @Multipart
-    @POST("api/file-object/{fileId}/")
+    @PUT("api/file-object/{fileId}/")
     Single<Response<CvUploadResponse>> uploadCv(
             @Path("fileId") int fileId,
             @Part MultipartBody.Part pdfFile
