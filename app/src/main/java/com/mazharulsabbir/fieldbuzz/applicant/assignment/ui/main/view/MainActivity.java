@@ -286,6 +286,7 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText(file.getName());
 
             } catch (Exception e) {
+                Toast.makeText(this, "Failed to read file. Please choose file from file manager.", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }
